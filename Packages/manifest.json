@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.leopotam.ecs": "https://github.com/Leopotam/ecs.git",
+    "com.leopotam.ecs-unityintegration": "https://github.com/Leopotam/ecs-unityintegration.git",
     "com.unity.collab-proxy": "1.2.16",
     "com.unity.ext.nunit": "1.0.0",
     "com.unity.ide.rider": "1.1.0",
@@ -45,6 +46,10 @@
   "lock": {
     "com.leopotam.ecs": {
       "hash": "8b050a469fa51f7e69414638a3400281874a8127",
+      "revision": "HEAD"
+    },
+    "com.leopotam.ecs-unityintegration": {
+      "hash": "3347cc43ec5979fdb8f56965f5b8b2009afe49d5",
       "revision": "HEAD"
     }
   }
