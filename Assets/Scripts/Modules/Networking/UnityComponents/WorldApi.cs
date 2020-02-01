@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Leopotam.Ecs;
 using Modules.ViewHub;
 using UnityEngine;
@@ -10,11 +11,12 @@ namespace Modules.CoreGame
     public class WorldApi : MonoBehaviour
     {
         [SerializeField] private NetConfig _config;
-        private EcsFilter<WorldPoint, ObjectOwner> _worldPointFilter;
+        private Dictionary<int, Vector3> IDtoPoint;
 
 
         public void GetWorldData(EcsWorld ecsWorld)
         {
+            IDtoPoint = new Dictionary<int, Vector3>();
             StartCoroutine(GetWorldData(_config.ServerAddress + _config.WorldEndPoint, ecsWorld));
         }
 
@@ -62,7 +64,7 @@ namespace Modules.CoreGame
                 else
                 {
                     JSONNode world = JSON.Parse(webRequest.downloadHandler.text);
-                    ResetWorldOwners(world, ecsWorld);
+                    // ResetWorldOwners(world, ecsWorld);
                 }
             }
         }
@@ -87,12 +89,30 @@ namespace Modules.CoreGame
                 ObjectOwner objOwner = entity.Set<ObjectOwner>();
                 objOwner.OwnerUsername = point.Value["owned_by"];
                 objOwner.IsOwned = (objOwner.OwnerUsername) == "" ? false : true;
-
-                
                 
                 // parse position
                 Positioning.Components.Position pos = entity.Set<Positioning.Components.Position>();
                 pos.Point.Set(point.Value["position"]["x"].AsInt, 0.0f, point.Value["position"]["y"].AsInt);
+                IDtoPoint.Add(worldPoint.PointID, pos.Point);
+
+                // Generating lines
+                foreach (var neighbour in point.Value["adjacent"])
+                {
+                    Debug.Log(worldPoint.PointID);
+                    int nKey = int.Parse(neighbour.Value);
+                    if (nKey < worldPoint.PointID) {
+                        Debug.Log(IDtoPoint.Keys.ToString());
+                        Debug.Log(nKey);
+
+                        EcsEntity lineEntity = ecsWorld.NewEntity();
+
+                        LineConnection lConnection = lineEntity.Set<LineConnection>();
+                        lConnection.PositionA = pos.Point;
+                        lConnection.PositionB = IDtoPoint[nKey];
+
+                        lineEntity.Set<AllocateView>().id = "Line";
+                    }
+                }
                 
                 // parse point type
                 switch (worldPoint.PointType)
@@ -113,19 +133,20 @@ namespace Modules.CoreGame
             }
         }
         
-        public void ResetWorldOwners(JSONNode node, EcsWorld ecsWorld)
+        /*public void ResetWorldOwners(JSONNode node, EcsWorld ecsWorld)
         {
             var map = node["data"];
             foreach (var p in map)
             {
-                foreach (var i in _worldPointFilter) {
-                    if (_worldPointFilter.Get1[i].PointID == int.Parse(p.Key)) {
-                        _worldPointFilter.Get2[i].OwnerUsername = p.Value;
-                        _worldPointFilter.Get2[i].IsOwned = (_worldPointFilter.Get2[i].OwnerUsername == "") ? false : true;
+                foreach (var i in _ownedWorldPointFilter) {
+                    if (_ownedWorldPointFilter.Get1[i].PointID == int.Parse(p.Key)) {
+                        _ownedWorldPointFilter.Get2[i].OwnerUsername = p.Value;
+                        _ownedWorldPointFilter.Get2[i].IsOwned = 
+                            (_ownedWorldPointFilter.Get2[i].OwnerUsername == "") ? false : true;
                     }
                 }
             }
-        }
+        }*/
 
     }
 }
