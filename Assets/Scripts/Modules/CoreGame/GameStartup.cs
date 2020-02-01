@@ -50,8 +50,14 @@ namespace Modules.CoreGame
                 .Add(new UserInput.TapTrackerSystem())
                 
                 // networking
+                .Add(new PlayersUpdateIssuingSystem(_playerApi))
                 .Add(new SyncWorldSystem(_worldApi))
                 .Add(new ConnectSystem(_playerApi))
+                .Add(new PlayersUpdateSystem(_playerApi))
+
+                // stuff
+                .Add(new SpawnPlayerProcessing())
+                .Add(new UpdatePlayerPointProcessing())
 
                 // object rotating system
                 .Add(new ObjectRotationSystem());
@@ -74,11 +80,14 @@ namespace Modules.CoreGame
             _systems
                 .OneFrame<Positioning.Components.LazyPositionUpdate>()
                 .OneFrame<LoginActionTag>()
-                .OneFrame<LoggedInTag>();
+                .OneFrame<LoggedInTag>()
+                .OneFrame<PlayersUpdateTag>()
+                .OneFrame<SpawnPlayerTag>();
 
             _viewSystems
                 .OneFrame<AllocateView>()
-                .OneFrame<Positioning.Components.LazyPositionUpdate>();
+                .OneFrame<Positioning.Components.LazyPositionUpdate>()
+                ;
 
             _systems.Add(_viewSystems);
 

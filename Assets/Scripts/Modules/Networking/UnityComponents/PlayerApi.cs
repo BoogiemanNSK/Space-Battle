@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using Leopotam.Ecs;
 using Modules.ViewHub;
@@ -13,9 +14,16 @@ namespace Modules.CoreGame
         [SerializeField] public string PlayerToken;
         [SerializeField] public string PlayerName;
 
+        public Dictionary<string, Player> PlayerData = new Dictionary<string,Player>();
+
         public void Connect(EcsWorld ecsWorld, string playerName)
         {
             StartCoroutine(Login(ecsWorld, playerName));
+        }
+
+        public void UpdatePlayerData(EcsWorld ecsWorld)
+        {
+            StartCoroutine(GetPlayersData(ecsWorld));
         }
 
         public void ValideConnection(EcsWorld ecsWorld)
@@ -35,7 +43,6 @@ namespace Modules.CoreGame
             {
                 // Request and wait for the desired page.
                 yield return webRequest.SendWebRequest();
-                Debug.Log(webRequest.downloadHandler.text);
 
                 if (webRequest.isNetworkError)
                 {
@@ -60,7 +67,6 @@ namespace Modules.CoreGame
             {
                 // Request and wait for the desired page.
                 yield return webRequest.SendWebRequest();
-                Debug.Log(webRequest.downloadHandler.text);
 
                 if (webRequest.isNetworkError)
                 {
@@ -77,7 +83,47 @@ namespace Modules.CoreGame
             }
         }
 
-        
+        public IEnumerator GetPlayersData(EcsWorld world)
+        {
+            using(UnityWebRequest webRequest = UnityWebRequest.Get(_config.ServerAddress + _config.PlayersEndPoint))
+            {
+                // Request and wait for the desired page.
+                yield return webRequest.SendWebRequest();
+
+                if (webRequest.isNetworkError)
+                {
+                    Debug.Log("Login " + ": Error: " + webRequest.error);
+                }
+                else
+                {
+                    JSONNode data = JSON.Parse(webRequest.downloadHandler.text);
+                    foreach (var item in data["data"])
+                    {
+                        Player p;
+
+                        if(PlayerData.TryGetValue(item.Value["username"], out p))
+                        {
+                            p.Location = item.Value["location"].AsInt;
+                            p.HP = item.Value["hp"].AsInt;
+                            p.Power = item.Value["power"].AsInt;
+                        }
+                        else
+                        {
+                            p = new Player();
+                            p.Name = item.Value["username"];
+                            p.Location = item.Value["location"].AsInt;
+                            p.HP = item.Value["hp"].AsInt;
+                            p.Power = item.Value["power"].AsInt;
+                            PlayerData.Add(p.Name, p);
+                            world.NewEntity().Set<SpawnPlayerTag>().Player = p;
+                        }
+                        world.NewEntity().Set<PlayersUpdateTag>();
+                    }
+                }
+            }
+        }
+
+
         
     }
 }
