@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 062be8e762e194916b043ba48d9aa60c, type: 3}
-  m_Name: GameScreens
+  m_Script: {fileID: 11500000, guid: 845baebdc381e486fa9b80633a20a720, type: 3}
+  m_Name: MianLayer
   m_EditorClassIdentifier: 
-  Layers:
-  - {fileID: 11400000, guid: 6d765208da0544608bb941e606bda4ed, type: 2}
+  LayerID: 0
+  Screens:
+  - ID: 0
+    Screen: {fileID: 1611168029850150604, guid: 4b7747f09e1574fdfac1afc330a1d0bc,
+      type: 3}
