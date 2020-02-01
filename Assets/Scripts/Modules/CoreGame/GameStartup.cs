@@ -60,7 +60,10 @@ namespace Modules.CoreGame
                 .Add(new UpdatePlayerPointProcessing())
 
                 // object rotating system
-                .Add(new ObjectRotationSystem());
+                .Add(new ObjectRotationSystem())
+
+                // camera
+                .Add(new CameraSystem());
 
             _viewSystems
                 // view allocations

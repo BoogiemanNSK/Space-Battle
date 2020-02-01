@@ -129,6 +129,7 @@ namespace Modules.CoreGame
 
                         lineEntity.Set<AllocateView>().id = "Line";
                     }
+                    
                 }
             }
 
