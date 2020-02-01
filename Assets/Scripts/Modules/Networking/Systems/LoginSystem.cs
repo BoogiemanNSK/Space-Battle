@@ -31,6 +31,10 @@ namespace Modules.CoreGame
                 UICoreECS.ShowScreenTag screen = _world.NewEntity().Set<UICoreECS.ShowScreenTag>();
                 screen.ID = 1;
                 screen.Layer = 0;
+
+                UICoreECS.ShowScreenTag bottomPanel = _world.NewEntity().Set<UICoreECS.ShowScreenTag>();
+                bottomPanel.ID = 0;
+                bottomPanel.Layer = 1;
             }
         }
     }

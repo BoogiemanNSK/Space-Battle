@@ -123,6 +123,62 @@ namespace Modules.CoreGame
             }
         }
 
+        public void BuyAction(EcsWorld world)
+        {
+            StartCoroutine(Buy(world));
+        }
+
+        public IEnumerator Buy(EcsWorld world)
+        {
+            using(UnityWebRequest webRequest = UnityWebRequest.Get(_config.ServerAddress + _config.BuyEndPoint + 
+            "?username=" + PlayerName + "&token=" + PlayerToken))
+            {
+                // Request and wait for the desired page.
+                yield return webRequest.SendWebRequest();
+
+                if (webRequest.isNetworkError)
+                {
+                    Debug.Log("Login " + ": Error: " + webRequest.error);
+                }
+                else
+                {
+                    JSONNode data = JSON.Parse(webRequest.downloadHandler.text);
+                    if(data["status"].AsBool)
+                    {
+                        world.NewEntity().Set<UIUpdate>();
+                    }
+                }
+            }
+        }
+
+        public void DestroyAction(EcsWorld world)
+        {
+            StartCoroutine(Destroy(world));
+        }
+
+        public IEnumerator Destroy(EcsWorld world)
+        {
+            using(UnityWebRequest webRequest = UnityWebRequest.Get(_config.ServerAddress + _config.DestroyEndPoint + 
+            "?username=" + PlayerName + "&token=" + PlayerToken))
+            {
+                // Request and wait for the desired page.
+                yield return webRequest.SendWebRequest();
+
+                if (webRequest.isNetworkError)
+                {
+                    Debug.Log("Login " + ": Error: " + webRequest.error);
+                }
+                else
+                {
+                    JSONNode data = JSON.Parse(webRequest.downloadHandler.text);
+                    if(data["status"].AsBool)
+                    {
+                        world.NewEntity().Set<UIUpdate>();
+                    }
+                }
+            }
+        }
+
 
         
     }

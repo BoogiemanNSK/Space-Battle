@@ -54,6 +54,8 @@ namespace Modules.CoreGame
                 .Add(new SyncWorldSystem(_worldApi))
                 .Add(new ConnectSystem(_playerApi))
                 .Add(new PlayersUpdateSystem(_playerApi))
+                .Add(new DestroyNetSystem(_playerApi))
+                .Add(new BuyNetSystem(_playerApi))
 
                 // stuff
                 .Add(new SpawnPlayerProcessing(_playerApi))
@@ -79,7 +81,8 @@ namespace Modules.CoreGame
                 //ui
                 .Add(new UIUpadteIssuer(0.5f))
                 .Add(new UICoreECS.ScreenSwitchSystem(_screens, _uiRoot))
-                .Add(new UIPlayerStatsUpdateSystem());
+                .Add(new UIPlayerStatsUpdateSystem())
+                .Add(new UICurrentPlanetPanelDrawer(_playerApi));
 
             _systems
                 .OneFrame<Positioning.Components.LazyPositionUpdate>()
@@ -87,7 +90,9 @@ namespace Modules.CoreGame
                 .OneFrame<LoggedInTag>()
                 .OneFrame<PlayersUpdateTag>()
                 .OneFrame<SpawnPlayerTag>()
-                .OneFrame<UpdateOwnersTag>();
+                .OneFrame<UpdateOwnersTag>()
+                .OneFrame<BuyActionTag>()
+                .OneFrame<DestroyActionTag>();
 
             _viewSystems
                 .OneFrame<AllocateView>()

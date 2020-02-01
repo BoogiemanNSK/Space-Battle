@@ -59,6 +59,7 @@ namespace UICoreECS
                     entity.Active = true;
                     entity.Screen = screen;
                     screen.Show();
+                    _world.NewEntity().Set<Modules.CoreGame.UIUpdate>();
                 }
 
                 _filter.Entities[i].Destroy(); // cleanup
