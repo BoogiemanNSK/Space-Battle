@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Leopotam.Ecs;
 
-public class GameLoader : MonoBehaviour {
+sealed class GameLoader : MonoBehaviour {
     EcsWorld _world;
     EcsSystems _systems;
 
