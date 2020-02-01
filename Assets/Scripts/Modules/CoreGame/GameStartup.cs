@@ -56,8 +56,10 @@ namespace Modules.CoreGame
                 .Add(new PlayersUpdateSystem(_playerApi))
 
                 // stuff
-                .Add(new SpawnPlayerProcessing())
+                .Add(new SpawnPlayerProcessing(_playerApi))
+                .Add(new UpdateUserPlanetProcessing())
                 .Add(new UpdatePlayerPointProcessing())
+                .Add(new UpdateOwnersProcessing(_worldApi))
 
                 // object rotating system
                 .Add(new ObjectRotationSystem())
@@ -78,18 +80,22 @@ namespace Modules.CoreGame
                 .Add(new UMeshRenderer.Systems.UMeshRenderer())
                 
                 //ui
-                .Add(new UICoreECS.ScreenSwitchSystem(_screens, _uiRoot));
+                .Add(new UIUpadteIssuer(0.5f))
+                .Add(new UICoreECS.ScreenSwitchSystem(_screens, _uiRoot))
+                .Add(new UIPlayerStatsUpdateSystem());
 
             _systems
                 .OneFrame<Positioning.Components.LazyPositionUpdate>()
                 .OneFrame<LoginActionTag>()
                 .OneFrame<LoggedInTag>()
                 .OneFrame<PlayersUpdateTag>()
-                .OneFrame<SpawnPlayerTag>();
+                .OneFrame<SpawnPlayerTag>()
+                .OneFrame<UpdateOwnersTag>();
 
             _viewSystems
                 .OneFrame<AllocateView>()
-                .OneFrame<Positioning.Components.LazyPositionUpdate>();
+                .OneFrame<Positioning.Components.LazyPositionUpdate>()
+                .OneFrame<UIUpdate>();
 
             _systems.Add(_viewSystems);
 

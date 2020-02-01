@@ -7,6 +7,7 @@ namespace Modules.Utils
     {
         public float Time;
         public float DeltaTime;
+        public float UnscaledTime;
     }
     
     public sealed class UnityTimeSystem : IEcsRunSystem {
@@ -16,6 +17,7 @@ namespace Modules.Utils
         public void Run () {
             _time.Time = Time.time;
             _time.DeltaTime = Time.deltaTime;
+            _time.UnscaledTime = Time.unscaledTime;
         }
     }
 }

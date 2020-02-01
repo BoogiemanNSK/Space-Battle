@@ -11,5 +11,9 @@ namespace Modules.CoreGame
         public int Location;
     }
 
+    public class UserPlayer : IEcsIgnoreInFilter {}
+
+    public class CurrentPoint : IEcsIgnoreInFilter {}
+
     public class PlayersUpdateTag : IEcsIgnoreInFilter{}
 }
