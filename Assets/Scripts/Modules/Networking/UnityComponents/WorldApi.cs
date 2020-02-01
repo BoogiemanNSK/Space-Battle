@@ -92,27 +92,8 @@ namespace Modules.CoreGame
                 
                 // parse position
                 Positioning.Components.Position pos = entity.Set<Positioning.Components.Position>();
-                pos.Point.Set(point.Value["position"]["x"].AsInt, 0.0f, point.Value["position"]["y"].AsInt);
+                pos.Point.Set(point.Value["position"]["x"].AsInt, Random.Range(-10.0f, 10.0f), point.Value["position"]["y"].AsInt);
                 IDtoPoint.Add(worldPoint.PointID, pos.Point);
-
-                // Generating lines
-                foreach (var neighbour in point.Value["adjacent"])
-                {
-                    Debug.Log(worldPoint.PointID);
-                    int nKey = int.Parse(neighbour.Value);
-                    if (nKey < worldPoint.PointID) {
-                        Debug.Log(IDtoPoint.Keys.ToString());
-                        Debug.Log(nKey);
-
-                        EcsEntity lineEntity = ecsWorld.NewEntity();
-
-                        LineConnection lConnection = lineEntity.Set<LineConnection>();
-                        lConnection.PositionA = pos.Point;
-                        lConnection.PositionB = IDtoPoint[nKey];
-
-                        lineEntity.Set<AllocateView>().id = "Line";
-                    }
-                }
                 
                 // parse point type
                 switch (worldPoint.PointType)
@@ -131,6 +112,26 @@ namespace Modules.CoreGame
                 }
 
             }
+
+            // Generating lines
+            foreach (var point in node["data"]["points"]) {
+                int pID = int.Parse(point.Key);
+
+                foreach (var neighbour in point.Value["adjacent"])
+                {
+                    int nKey = int.Parse(neighbour.Value);
+                    if (nKey < pID) {
+                        EcsEntity lineEntity = ecsWorld.NewEntity();
+
+                        LineConnection lConnection = lineEntity.Set<LineConnection>();
+                        lConnection.PositionA = IDtoPoint[pID];
+                        lConnection.PositionB = IDtoPoint[nKey];
+
+                        lineEntity.Set<AllocateView>().id = "Line";
+                    }
+                }
+            }
+
         }
         
         /*public void ResetWorldOwners(JSONNode node, EcsWorld ecsWorld)
