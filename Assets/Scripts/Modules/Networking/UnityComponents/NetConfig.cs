@@ -15,5 +15,6 @@ namespace Modules.CoreGame
         public string DestroyEndPoint;
         public string AttackEndPoint;
         public string TradeEndPoint;
+        public string OwnedList;
     }
 }

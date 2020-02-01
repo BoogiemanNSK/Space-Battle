@@ -22,3 +22,4 @@ MonoBehaviour:
   DestroyEndPoint: /destroy
   AttackEndPoint: /attack
   TradeEndPoint: /trade
+  OwnedList: /owned
