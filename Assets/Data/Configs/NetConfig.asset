@@ -13,5 +13,13 @@ MonoBehaviour:
   m_Name: NetConfig
   m_EditorClassIdentifier: 
   ServerAddress: http://spacebattle.online:34000
+  ConnectEndPoint: /connect
+  MoveEndPoint: /move
   WorldEndPoint: /world
+  OwnedEndPoint: /owned
+  PlayersEndPoint: /players
+  BuyEndPoint: /buy
+  DestroyEndPoint: /destroy
+  AttackEndPoint: /attack
+  TradeEndPoint: /trade
   OwnedList: /owned
