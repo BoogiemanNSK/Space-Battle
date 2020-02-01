@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 062be8e762e194916b043ba48d9aa60c, type: 3}
   m_Name: GameScreens
   m_EditorClassIdentifier: 
-  Layers: []
+  Layers:
+  - {fileID: 11400000, guid: 6d765208da0544608bb941e606bda4ed, type: 2}

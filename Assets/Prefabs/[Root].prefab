@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5328220200462801081}
   - component: {fileID: 8023890604584974517}
   - component: {fileID: 1543275657696672964}
+  - component: {fileID: 6071677407226219989}
   m_Layer: 0
   m_Name: '[Root]'
   m_TagString: Untagged
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiRoot: {fileID: 0}
   _worldApi: {fileID: 1543275657696672964}
+  _playerApi: {fileID: 6071677407226219989}
   _gameView: {fileID: 11400000, guid: 1fdd571afe3be49ec86959532bddd5c8, type: 2}
   _screens: {fileID: 11400000, guid: b40ec7762e25d4cd98d167d71c5f1c9a, type: 2}
 --- !u!114 &1543275657696672964
@@ -61,3 +63,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: aaec740a3b108406a98e72f5fe75721a, type: 2}
+--- !u!114 &6071677407226219989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5328220200462801080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17d4a9e1782f14d1eb264b38136977b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _config: {fileID: 11400000, guid: aaec740a3b108406a98e72f5fe75721a, type: 2}
+  PlayerToken: 

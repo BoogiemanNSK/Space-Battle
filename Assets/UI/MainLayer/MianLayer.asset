@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 845baebdc381e486fa9b80633a20a720, type: 3}
+  m_Name: MianLayer
+  m_EditorClassIdentifier: 
+  LayerID: 0
+  Screens:
+  - ID: 0
+    Screen: {fileID: 1611168029850150604, guid: 4b7747f09e1574fdfac1afc330a1d0bc,
+      type: 3}
+  - ID: 1
+    Screen: {fileID: 7416874348139835607, guid: dde3d2985a3d5407ca4307c1e40163be,
+      type: 3}
