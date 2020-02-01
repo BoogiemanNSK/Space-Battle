@@ -7,7 +7,6 @@ namespace Modules.CoreGame
     public class CameraSystem : IEcsRunSystem, IEcsInitSystem
     {
         readonly float MovementSpeed = 0.35f;
-        readonly float Deacceleration = 0.1f;
 
         // auto injected
         readonly EcsWorld _world;
@@ -16,8 +15,6 @@ namespace Modules.CoreGame
         private Vector3 FirstPoint, SecondPoint;
         private float xPos, yPos;
         private float xPosTemp, yPosTemp;
-        private float xSpeed, ySpeed;
-        private float xAcc, yAcc;
         
         public void Init()
         {
@@ -51,14 +48,8 @@ namespace Modules.CoreGame
                 {
                     SecondPoint = Input.GetTouch(0).position;
 
-                    xSpeed = (SecondPoint.x - FirstPoint.x) * MovementSpeed;
-                    ySpeed = (SecondPoint.y - FirstPoint.y) * MovementSpeed;
-
-                    xAcc = -1.0f * xSpeed * Deacceleration;
-                    yAcc = -1.0f * ySpeed * Deacceleration;
-
-                    xPos = xPosTemp - xSpeed;
-                    yPos = yPosTemp - ySpeed;
+                    xPos = xPosTemp - (SecondPoint.x - FirstPoint.x) * MovementSpeed;
+                    yPos = yPosTemp - (SecondPoint.y - FirstPoint.y) * MovementSpeed;
 
                     _camPosition.Point = new Vector3(xPos, _camPosition.Point.y, yPos);
                 }
