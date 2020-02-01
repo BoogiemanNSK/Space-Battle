@@ -86,8 +86,7 @@ namespace Modules.CoreGame
 
             _viewSystems
                 .OneFrame<AllocateView>()
-                .OneFrame<Positioning.Components.LazyPositionUpdate>()
-                ;
+                .OneFrame<Positioning.Components.LazyPositionUpdate>();
 
             _systems.Add(_viewSystems);
 

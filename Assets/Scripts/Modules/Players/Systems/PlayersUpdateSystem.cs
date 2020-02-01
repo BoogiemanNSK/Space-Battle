@@ -52,6 +52,7 @@ namespace Modules.CoreGame
         public void Init()
         {
             _playerApi.UpdatePlayerData(_world);
+            _updateTime = UnityEngine.Time.unscaledTime;
         }
 
         public void Run()

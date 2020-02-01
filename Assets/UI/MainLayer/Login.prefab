@@ -1006,6 +1006,7 @@ GameObject:
   - component: {fileID: 1611168029850150707}
   - component: {fileID: 1611168029850150706}
   - component: {fileID: 1611168029850150705}
+  - component: {fileID: 1990766971550475120}
   m_Layer: 5
   m_Name: Login
   m_TagString: Untagged
@@ -1097,7 +1098,7 @@ Animator:
   m_GameObject: {fileID: 8541064233584603598}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4f71913517a1f4c62b7b2bb0fbe67e72, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1123,6 +1124,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &1990766971550475120
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8541064233584603598}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8948662536014457152
 GameObject:
   m_ObjectHideFlags: 0
