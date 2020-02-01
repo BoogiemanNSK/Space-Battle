@@ -51,11 +51,18 @@ namespace Modules.CoreGame
                 else
                 {
                     JSONNode data = JSON.Parse(webRequest.downloadHandler.text);
-                    PlayerToken = data["data"]["token"];
-                    PlayerName = userName;
-                    PlayerPrefs.SetString("token", PlayerToken);
-                    PlayerPrefs.SetString("username", userName);
-                    world.NewEntity().Set<LoggedInTag>();
+                    if(data["status"].AsBool)
+                    {
+                        PlayerToken = data["data"]["token"];
+                        PlayerName = userName;
+                        PlayerPrefs.SetString("token", PlayerToken);
+                        PlayerPrefs.SetString("username", userName);
+                        world.NewEntity().Set<LoggedInTag>();
+                    }else
+                    {
+                        world.NewEntity().Set<ShowInfoPopUpTag>().Message = data["data"];
+                    }
+
                 }
             }
         }
@@ -78,6 +85,9 @@ namespace Modules.CoreGame
                     if(data["status"].AsBool)
                     {
                         world.NewEntity().Set<LoggedInTag>();
+                    }else
+                    {
+                        world.NewEntity().Set<ShowInfoPopUpTag>().Message = data["data"];
                     }
                 }
             }
@@ -146,6 +156,9 @@ namespace Modules.CoreGame
                     if(data["status"].AsBool)
                     {
                         world.NewEntity().Set<UIUpdate>();
+                    }else
+                    {
+                        world.NewEntity().Set<ShowInfoPopUpTag>().Message = data["data"];
                     }
                 }
             }
@@ -174,6 +187,9 @@ namespace Modules.CoreGame
                     if(data["status"].AsBool)
                     {
                         world.NewEntity().Set<UIUpdate>();
+                    }else
+                    {
+                        world.NewEntity().Set<ShowInfoPopUpTag>().Message = data["data"];
                     }
                 }
             }

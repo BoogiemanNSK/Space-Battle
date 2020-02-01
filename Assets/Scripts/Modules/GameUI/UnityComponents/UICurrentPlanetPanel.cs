@@ -25,7 +25,7 @@ namespace Modules.CoreGame
             view.Owner = _owner;
             view.Buy = _buy;
             view.Destroy = _destroy;
-
+            
             _world = world;
         }
 

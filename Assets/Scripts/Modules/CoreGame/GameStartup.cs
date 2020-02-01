@@ -82,7 +82,8 @@ namespace Modules.CoreGame
                 .Add(new UIUpadteIssuer(0.5f))
                 .Add(new UICoreECS.ScreenSwitchSystem(_screens, _uiRoot))
                 .Add(new UIPlayerStatsUpdateSystem())
-                .Add(new UICurrentPlanetPanelDrawer(_playerApi));
+                .Add(new UICurrentPlanetPanelDrawer(_playerApi))
+                .Add(new InfoPopUpProcessing());
 
             _systems
                 .OneFrame<Positioning.Components.LazyPositionUpdate>()
