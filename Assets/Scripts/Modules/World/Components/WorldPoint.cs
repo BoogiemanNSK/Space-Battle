@@ -1,3 +1,5 @@
+using Leopotam.Ecs;
+
 namespace Modules.CoreGame
 {
     public enum WorldPointType
@@ -12,4 +14,16 @@ namespace Modules.CoreGame
         public WorldPointType PointType;
         public int PointID;
     }
+
+    public class PointOwner : IEcsAutoReset
+    {
+        public string OwnerID;
+
+        public void Reset() 
+        {
+            OwnerID = "";
+        }
+    }
+
+
 }

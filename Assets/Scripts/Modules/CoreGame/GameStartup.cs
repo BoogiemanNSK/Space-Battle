@@ -58,6 +58,7 @@ namespace Modules.CoreGame
                 // stuff
                 .Add(new SpawnPlayerProcessing(_playerApi))
                 .Add(new UpdatePlayerPointProcessing())
+                .Add(new UpdateOwnersProcessing(_worldApi))
 
                 // object rotating system
                 .Add(new ObjectRotationSystem());
@@ -82,7 +83,8 @@ namespace Modules.CoreGame
                 .OneFrame<LoginActionTag>()
                 .OneFrame<LoggedInTag>()
                 .OneFrame<PlayersUpdateTag>()
-                .OneFrame<SpawnPlayerTag>();
+                .OneFrame<SpawnPlayerTag>()
+                .OneFrame<UpdateOwnersTag>();
 
             _viewSystems
                 .OneFrame<AllocateView>()
