@@ -15,6 +15,7 @@ namespace Modules.CoreGame
         [Header("Scene refs")]
         [SerializeField] private Transform _uiRoot;
         [SerializeField] private WorldApi _worldApi;
+        [SerializeField] private PlayerApi _playerApi;
 
         [Header("Data refs")]
         [SerializeField] private ViewHub.ViewHub _gameView;
@@ -50,6 +51,7 @@ namespace Modules.CoreGame
                 
                 // networking
                 .Add(new SyncWorldSystem(_worldApi))
+                .Add(new ConnectSystem(_playerApi))
 
                 // object rotating system
                 .Add(new ObjectRotationSystem());
@@ -70,7 +72,9 @@ namespace Modules.CoreGame
                 .Add(new UICoreECS.ScreenSwitchSystem(_screens, _uiRoot));
 
             _systems
-                .OneFrame<Positioning.Components.LazyPositionUpdate>();
+                .OneFrame<Positioning.Components.LazyPositionUpdate>()
+                .OneFrame<LoginActionTag>()
+                .OneFrame<LoggedInTag>();
 
             _viewSystems
                 .OneFrame<AllocateView>()
