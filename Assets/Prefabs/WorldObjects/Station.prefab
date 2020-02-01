@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7421213268826086336}
   - component: {fileID: 6660268084831360204}
+  - component: {fileID: 7202259454299511325}
   m_Layer: 0
   m_Name: Station
   m_TagString: Untagged
@@ -45,7 +46,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: Station
-  _components: []
+  _components:
+  - {fileID: 7202259454299511325}
+--- !u!114 &7202259454299511325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4201458938647391300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d7fc63a7fe446aea1b6e050d3e6e5cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _root: {fileID: 8247200240288695142}
 --- !u!1001 &8249922960836298702
 PrefabInstance:
   m_ObjectHideFlags: 0

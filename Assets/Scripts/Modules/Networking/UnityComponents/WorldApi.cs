@@ -49,6 +49,12 @@ namespace Modules.CoreGame
                 WorldPoint worldPoint = entity.Set<WorldPoint>();
                 worldPoint.PointID = int.Parse(point.Key);
                 worldPoint.PointType = (WorldPointType) point.Value["loc_type"].AsInt;
+
+                // Set Object rotation
+                RotatingObject rObject = entity.Set<RotatingObject>();
+                rObject.RotatingSpeedX = Random.Range(-0.2f, 0.2f);
+                rObject.RotatingSpeedY = Random.Range(-0.2f, 0.2f);
+                rObject.RotatingSpeedZ = Random.Range(-0.2f, 0.2f);
                 
                 // parse position
                 Positioning.Components.Position pos = entity.Set<Positioning.Components.Position>();
@@ -65,6 +71,8 @@ namespace Modules.CoreGame
                         break;
                     case WorldPointType.Station:
                         entity.Set<AllocateView>().id = "Station";
+                        rObject.RotatingSpeedX = 0.0f;
+                        rObject.RotatingSpeedZ = 0.0f;
                         break;
                 }
 

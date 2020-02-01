@@ -49,7 +49,10 @@ namespace Modules.CoreGame
                 .Add(new UserInput.TapTrackerSystem())
                 
                 // networking
-                .Add(new SyncWorldSystem(_worldApi));
+                .Add(new SyncWorldSystem(_worldApi))
+
+                // object rotating system
+                .Add(new ObjectRotationSystem());
 
             _viewSystems
                 // view allocations
