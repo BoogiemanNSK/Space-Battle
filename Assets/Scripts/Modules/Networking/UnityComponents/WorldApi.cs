@@ -9,9 +9,12 @@ namespace Modules.CoreGame
 {
     public class WorldApi : MonoBehaviour
     {
+        [SerializeField] private NetConfig _config;
+
+
         public void GetWorldData(EcsWorld ecsWorld)
         {
-            StartCoroutine(GetWorldData("http://spacebattle.online:34000/world", ecsWorld));
+            StartCoroutine(GetWorldData(_config.ServerAddress + _config.WorldEndPoint, ecsWorld));
         }
         
         IEnumerator GetWorldData(string uri, EcsWorld ecsWorld)
