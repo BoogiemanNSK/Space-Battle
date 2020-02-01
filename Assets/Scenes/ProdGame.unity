@@ -209,7 +209,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &506758073
 GameObject:
@@ -302,7 +302,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -390,7 +390,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1948100478
 GameObject:
@@ -468,7 +468,7 @@ PrefabInstance:
     - target: {fileID: 5328220200462801080, guid: 79b1a8028b2224f17b38cb1e31be7bf9,
         type: 3}
       propertyPath: m_Name
-      value: '[compositionRoot]'
+      value: "[\u0421ompositionRoot]"
       objectReference: {fileID: 0}
     - target: {fileID: 5328220200462801081, guid: 79b1a8028b2224f17b38cb1e31be7bf9,
         type: 3}

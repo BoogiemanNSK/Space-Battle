@@ -14,6 +14,7 @@ namespace Modules.CoreGame
 
         [Header("Scene refs")]
         [SerializeField] private Transform _uiRoot;
+        [SerializeField] private WorldApi _worldApi;
 
         [Header("Data refs")]
         [SerializeField] private ViewHub.ViewHub _gameView;
@@ -45,7 +46,10 @@ namespace Modules.CoreGame
                 .Add(new CoreGameInit())
                 .Add(new Utils.UnityTimeSystem())
                 // user input
-                .Add(new UserInput.TapTrackerSystem());
+                .Add(new UserInput.TapTrackerSystem())
+                
+                // networking
+                .Add(new SyncWorldSystem(_worldApi));
 
             _viewSystems
                 // view allocations
