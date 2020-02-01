@@ -56,7 +56,7 @@ namespace Modules.CoreGame
                 .Add(new PlayersUpdateSystem(_playerApi))
 
                 // stuff
-                .Add(new SpawnPlayerProcessing())
+                .Add(new SpawnPlayerProcessing(_playerApi))
                 .Add(new UpdatePlayerPointProcessing())
 
                 // object rotating system
