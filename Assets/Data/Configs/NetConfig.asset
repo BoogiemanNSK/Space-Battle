@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ServerAddress: http://spacebattle.online:34000
   WorldEndPoint: /world
+  OwnedList: /owned

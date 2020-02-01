@@ -7,5 +7,6 @@ namespace Modules.CoreGame
     {
         public string ServerAddress;
         public string WorldEndPoint;
+        public string OwnedList;
     }
 }
