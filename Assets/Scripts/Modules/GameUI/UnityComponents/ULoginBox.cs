@@ -14,6 +14,7 @@ namespace Modules.CoreGame
         private void Awake() 
         {
             _button.onClick.AddListener(Login);
+            _InputField.text = PlayerPrefs.HasKey("username") ? PlayerPrefs.GetString("username") : "";
         }
 
         public override void Init(EcsWorld world)
