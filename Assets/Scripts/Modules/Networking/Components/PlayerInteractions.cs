@@ -7,4 +7,5 @@ namespace Modules.CoreGame
     public class MoveActionTag : IEcsIgnoreInFilter {};
 
     public class AttackActionTag : IEcsIgnoreInFilter{}
+    public class HealActionTag : IEcsIgnoreInFilter{}
 }

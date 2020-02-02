@@ -58,6 +58,7 @@ namespace Modules.CoreGame
                 .Add(new BuyNetSystem(_playerApi))
                 .Add(new MoveNetSystem(_playerApi))
                 .Add(new AttackNetSystem(_playerApi))
+                .Add(new HealNetSystem(_playerApi))
 
                 // stuff
                 .Add(new SpawnPlayerProcessing(_playerApi))
@@ -106,7 +107,8 @@ namespace Modules.CoreGame
                 .OneFrame<DestroyActionTag>()
                 .OneFrame<MoveActionTag>()
                 .OneFrame<PointerClicked>()
-                .OneFrame<AttackActionTag>();
+                .OneFrame<AttackActionTag>()
+                .OneFrame<HealActionTag>();
 
             _viewSystems
                 .OneFrame<AllocateView>()
