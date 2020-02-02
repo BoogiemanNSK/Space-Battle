@@ -10,6 +10,7 @@ namespace Modules.CoreGame
         [SerializeField] private TextMeshProUGUI _owner;
         [SerializeField] private Button _buy;
         [SerializeField] private Button _destroy;
+        [SerializeField] private Button _attack;
 
         private EcsWorld _world;
 
@@ -17,6 +18,7 @@ namespace Modules.CoreGame
         {    
             _buy.onClick.AddListener(Buy);
             _destroy.onClick.AddListener(Destroy);
+            _attack.onClick.AddListener(Attack);
         }
 
         public override void Init(EcsWorld world)
@@ -37,6 +39,11 @@ namespace Modules.CoreGame
         public void Destroy()
         {
             _world.NewEntity().Set<DestroyActionTag>();
+        }
+
+        public void Attack()
+        {
+            _world.NewEntity().Set<AttackActionTag>();
         }
         
     }

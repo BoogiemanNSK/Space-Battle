@@ -108,6 +108,7 @@ namespace Modules.CoreGame
                 else
                 {
                     JSONNode data = JSON.Parse(webRequest.downloadHandler.text);
+                    PlayerData = new Dictionary<string, Player>();
                     foreach (var item in data["data"])
                     {
                         Player p;
@@ -205,6 +206,42 @@ namespace Modules.CoreGame
         {
             using(UnityWebRequest webRequest = UnityWebRequest.Get(_config.ServerAddress + _config.MoveEndPoint + 
             "?username=" + PlayerName + "&token=" + PlayerToken + "&target=" + point))
+            {
+                // Request and wait for the desired page.
+                yield return webRequest.SendWebRequest();
+
+                if (webRequest.isNetworkError)
+                {
+                    Debug.Log("Login " + ": Error: " + webRequest.error);
+                }
+                else
+                {
+                    JSONNode data = JSON.Parse(webRequest.downloadHandler.text);
+                    if(data["status"].AsBool)
+                    {
+                        world.NewEntity().Set<UIUpdate>();
+                        UICoreECS.ShowScreenTag screen = world.NewEntity().Set<UICoreECS.ShowScreenTag>();
+                        screen.ID = 1;
+                        screen.Layer = 1;
+                        UpdatePlayerData(world);
+                    }else
+                    {
+                        world.NewEntity().Set<ShowInfoPopUpTag>().Message = data["data"];
+                    }
+                }
+            }
+        }
+
+        public void AttackAction(EcsWorld world, string target)
+        {
+            StartCoroutine(Attack(world, target));
+        }
+
+
+        public IEnumerator Attack(EcsWorld world, string target)
+        {
+            using(UnityWebRequest webRequest = UnityWebRequest.Get(_config.ServerAddress + _config.AttackEndPoint + 
+            "?username=" + PlayerName + "&token=" + PlayerToken + "&target=" + target))
             {
                 // Request and wait for the desired page.
                 yield return webRequest.SendWebRequest();
