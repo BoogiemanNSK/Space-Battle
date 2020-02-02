@@ -19,3 +19,6 @@ MonoBehaviour:
   - ID: 1
     Screen: {fileID: 1474013360863849799, guid: 6334974023a1e43d49c3bcf1f23aab03,
       type: 3}
+  - ID: 2
+    Screen: {fileID: 2841852504479879569, guid: 22ff22274ece6485d9f1f2451bf6979d,
+      type: 3}

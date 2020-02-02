@@ -56,6 +56,7 @@ namespace Modules.CoreGame
                 .Add(new PlayersUpdateSystem(_playerApi))
                 .Add(new DestroyNetSystem(_playerApi))
                 .Add(new BuyNetSystem(_playerApi))
+                .Add(new MoveNetSystem(_playerApi))
 
                 // stuff
                 .Add(new SpawnPlayerProcessing(_playerApi))
@@ -67,7 +68,8 @@ namespace Modules.CoreGame
                 .Add(new ObjectRotationSystem())
 
                 // camera
-                .Add(new CameraSystem());
+                .Add(new CameraSystem())
+                .Add(new FollowPlayerCamera());
 
             _viewSystems
                 // view allocations
@@ -86,7 +88,8 @@ namespace Modules.CoreGame
                 .Add(new UICoreECS.ScreenSwitchSystem(_screens, _uiRoot))
                 .Add(new UIPlayerStatsUpdateSystem())
                 .Add(new UICurrentPlanetPanelDrawer(_playerApi))
-                .Add(new InfoPopUpProcessing());
+                .Add(new InfoPopUpProcessing())
+                .Add(new UISelectedPlanetPanelDrawer(_playerApi));
 
             _systems
                 .OneFrame<Positioning.Components.LazyPositionUpdate>()
@@ -96,7 +99,9 @@ namespace Modules.CoreGame
                 .OneFrame<SpawnPlayerTag>()
                 .OneFrame<UpdateOwnersTag>()
                 .OneFrame<BuyActionTag>()
-                .OneFrame<DestroyActionTag>();
+                .OneFrame<DestroyActionTag>()
+                .OneFrame<MoveActionTag>()
+                .OneFrame<PointerClicked>();
 
             _viewSystems
                 .OneFrame<AllocateView>()

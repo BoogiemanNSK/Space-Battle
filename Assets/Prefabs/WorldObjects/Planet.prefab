@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4145720693644117901}
   - component: {fileID: 1164236086874075567}
   - component: {fileID: 8111343048531104014}
+  - component: {fileID: 1645848109739643934}
+  - component: {fileID: 3959660058100930586}
   m_Layer: 0
   m_Name: Planet
   m_TagString: Untagged
@@ -48,6 +50,7 @@ MonoBehaviour:
   id: Planet
   _components:
   - {fileID: 8111343048531104014}
+  - {fileID: 1645848109739643934}
 --- !u!114 &8111343048531104014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,6 +64,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _root: {fileID: 1625504369461812023}
+--- !u!114 &1645848109739643934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3064421573455182055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 533ef179a1e144ebf847cf45b41390d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &3959660058100930586
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3064421573455182055}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 15, y: 15, z: 15}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1629745444069368053
 PrefabInstance:
   m_ObjectHideFlags: 0

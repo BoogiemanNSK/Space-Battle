@@ -22,7 +22,7 @@ namespace Modules.CoreGame
         }
     }
 
-        public class DestroyNetSystem : IEcsRunSystem
+    public class DestroyNetSystem : IEcsRunSystem
     {
         readonly EcsFilter<DestroyActionTag> _filter;
         readonly EcsWorld _world;
@@ -38,7 +38,29 @@ namespace Modules.CoreGame
             if(_filter.IsEmpty())
                 return;
 
-            _playerApi.BuyAction(_world);
+            _playerApi.DestroyAction(_world);
+        }
+    }
+
+
+    public class MoveNetSystem : IEcsRunSystem
+    {
+        readonly EcsFilter<MoveActionTag> _filter;
+        readonly EcsFilter<UIRemotePointTarget, WorldPoint> _target;
+        readonly EcsWorld _world;
+        readonly PlayerApi _playerApi;
+
+        public MoveNetSystem(PlayerApi playerApi)
+        {
+            _playerApi = playerApi;
+        }
+
+        public void Run()
+        {
+            if(_filter.IsEmpty() || _target.IsEmpty())
+                return;
+
+            _playerApi.MoveAction(_world, _target.Get2[0].PointID);
         }
     }
 }
