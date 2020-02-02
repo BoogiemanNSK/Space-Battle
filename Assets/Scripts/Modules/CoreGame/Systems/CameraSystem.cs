@@ -10,6 +10,7 @@ namespace Modules.CoreGame
 
         // auto injected
         readonly EcsWorld _world;
+        readonly EcsFilter<FollowPlayerTag> _follow;
         private Positioning.Components.Position _camPosition;
 
         private Vector3 FirstPoint, SecondPoint;
@@ -36,6 +37,8 @@ namespace Modules.CoreGame
 
         public void Run()
         {
+            if(!_follow.IsEmpty())
+                return;
 #if UNITY_EDITOR || UNITY_STANDALONE
             float acceleration = 5f;
             float shift = Input.GetKey(KeyCode.LeftShift) ? 2f : 1f;
