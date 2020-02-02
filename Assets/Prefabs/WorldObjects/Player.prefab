@@ -58,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f49294da54f38ec4d842929801c5838b, type: 2}
+  - {fileID: 2100000, guid: 27a26df9ceba4174a854cf003b56d460, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -233,6 +233,7 @@ MonoBehaviour:
   id: Player
   _components:
   - {fileID: 5396819563179970383}
+  - {fileID: 234688545110323254}
 --- !u!114 &5396819563179970383
 MonoBehaviour:
   m_ObjectHideFlags: 0

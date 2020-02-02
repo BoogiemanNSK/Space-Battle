@@ -46,7 +46,7 @@ namespace Modules.CoreGame
                 {
                     _filter.Entities[i].Set<UserPlayer>();
                 }
-                _filter.Entities[i].Set<GlowRootElement>();
+                _filter.Entities[i].Set<GlowRoot>();
             }
         }
     }
