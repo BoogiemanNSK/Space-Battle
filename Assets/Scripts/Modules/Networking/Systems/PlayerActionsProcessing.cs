@@ -38,7 +38,7 @@ namespace Modules.CoreGame
             if(_filter.IsEmpty())
                 return;
 
-            _playerApi.BuyAction(_world);
+            _playerApi.DestroyAction(_world);
         }
     }
 

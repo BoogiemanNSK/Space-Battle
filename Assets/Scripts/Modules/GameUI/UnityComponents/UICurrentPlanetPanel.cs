@@ -25,7 +25,7 @@ namespace Modules.CoreGame
             view.Owner = _owner;
             view.Buy = _buy;
             view.Destroy = _destroy;
-            
+
             _world = world;
         }
 
@@ -91,7 +91,7 @@ namespace Modules.CoreGame
                             _view.Get1[i].Destroy.gameObject.SetActive(false);
                         }else
                         {
-                            _view.Get1[i].Destroy.gameObject.SetActive(false);
+                            _view.Get1[i].Destroy.gameObject.SetActive(true);
                         }
 
                         _view.Get1[i].Buy.gameObject.SetActive(false);
