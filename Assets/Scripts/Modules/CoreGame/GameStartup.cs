@@ -65,6 +65,7 @@ namespace Modules.CoreGame
                 .Add(new UpdateUserPlanetProcessing())
                 .Add(new UpdatePlayerPointProcessing())
                 .Add(new UpdateOwnersProcessing(_worldApi))
+                .Add(new MoveTargetSys())
 
                 // object rotating system
                 .Add(new ObjectRotationSystem())
