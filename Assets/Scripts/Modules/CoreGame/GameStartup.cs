@@ -67,7 +67,8 @@ namespace Modules.CoreGame
                 .Add(new ObjectRotationSystem())
 
                 // camera
-                .Add(new CameraSystem());
+                .Add(new CameraSystem())
+                .Add(new FollowPlayerCamera());
 
             _viewSystems
                 // view allocations
