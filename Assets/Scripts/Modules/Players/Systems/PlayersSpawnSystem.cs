@@ -42,10 +42,11 @@ namespace Modules.CoreGame
                 _filter.Entities[i].Set<ViewHub.AllocateView>().id = "Player";
                 _filter.Entities[i].Set<Positioning.Components.Position>();
                 _filter.Entities[i].Set<UpdatePlayerPointTag>();
-                if(p.Name.Equals(_playerApi.PlayerName))
+                if (p.Name.Equals(_playerApi.PlayerName))
                 {
                     _filter.Entities[i].Set<UserPlayer>();
                 }
+                _filter.Entities[i].Set<GlowRootElement>();
             }
         }
     }
