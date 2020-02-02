@@ -29,6 +29,12 @@ namespace Modules.CoreGame
                     _filter.Get2[i].Point = _filter.Get1[i].Point;
                 }else
                 {
+                    if ((_filter.Get1[i].Point - _filter.Get2[i].Point).magnitude > 1.0f)
+                    {
+                        // Smoothly rotate towards the target point.
+                        _filter.Get2[i].EulerRotation = Quaternion.Slerp(Quaternion.Euler(_filter.Get2[i].EulerRotation), Quaternion.LookRotation(_filter.Get1[i].Point - _filter.Get2[i].Point), 4.5f * Time.deltaTime).eulerAngles;
+                    }
+
                     _filter.Get2[i].Point = Vector3.Lerp(_filter.Get2[i].Point, _filter.Get1[i].Point, 3.0f * _t.DeltaTime);
                 }
             }
