@@ -64,6 +64,27 @@ namespace Modules.CoreGame
         }
     }
 
+    public class HealNetSystem : IEcsRunSystem
+    {
+        readonly EcsFilter<HealActionTag> _filter;
+        readonly EcsFilter<UIRemotePointTarget, WorldPoint> _target;
+        readonly EcsWorld _world;
+        readonly PlayerApi _playerApi;
+
+        public HealNetSystem(PlayerApi playerApi)
+        {
+            _playerApi = playerApi;
+        }
+
+        public void Run()
+        {
+            if(_filter.IsEmpty())
+                return;
+
+            _playerApi.HealAction(_world);
+        }
+    }
+
     public class AttackNetSystem : IEcsRunSystem
     {
         readonly EcsFilter<AttackActionTag> _filter;
@@ -91,4 +112,6 @@ namespace Modules.CoreGame
             }
         }
     }
+
+    
 }
