@@ -57,6 +57,7 @@ namespace Modules.CoreGame
                         PlayerName = userName;
                         PlayerPrefs.SetString("token", PlayerToken);
                         PlayerPrefs.SetString("username", userName);
+                        PlayerPrefs.Save();
                         world.NewEntity().Set<LoggedInTag>();
                     }else
                     {

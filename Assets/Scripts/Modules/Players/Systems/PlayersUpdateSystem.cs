@@ -6,6 +6,7 @@ namespace Modules.CoreGame
     {
         readonly EcsFilter<PlayersUpdateTag> _tag;
         readonly EcsFilter<Player> _players;
+        readonly EcsFilter<UserPlayer, Player> _user;
         readonly EcsWorld _world;
 
         readonly PlayerApi _playerApi;
@@ -31,7 +32,23 @@ namespace Modules.CoreGame
                         _players.Get1[i].Location = p.Location;
                         _players.Entities[i].Set<UpdatePlayerPointTag>();
                     }
+                }else
+                {
+                    _players.Entities[i].Destroy();
                 }
+            }
+
+            foreach (var i in _user)
+            {
+                if(_user.Get2[i].HP <= 0)
+                {
+                    UICoreECS.ShowScreenTag screen = _world.NewEntity().Set<UICoreECS.ShowScreenTag>();
+                    screen.ID = 2;
+                    screen.Layer = 0;
+                    UnityEngine.PlayerPrefs.DeleteKey("token");
+                    UnityEngine.PlayerPrefs.DeleteKey("username");
+                    UnityEngine.PlayerPrefs.Save();
+                }    
             }
         }
     }
