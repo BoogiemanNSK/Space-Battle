@@ -13,7 +13,7 @@ namespace Modules.ViewHub
         {
             id = null;
             if(this.GameObject != null)
-                Object.Destroy(this.GameObject);
+                GameObject.Destroy(this.GameObject);
             Transform = null;
             GameObject = null;
         }
