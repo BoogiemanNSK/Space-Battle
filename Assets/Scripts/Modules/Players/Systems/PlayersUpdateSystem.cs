@@ -48,6 +48,7 @@ namespace Modules.CoreGame
                     UnityEngine.PlayerPrefs.DeleteKey("token");
                     UnityEngine.PlayerPrefs.DeleteKey("username");
                     UnityEngine.PlayerPrefs.Save();
+                    _user.Entities[i].Destroy();
                 }    
             }
         }
