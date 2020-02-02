@@ -10,6 +10,10 @@ namespace Modules.CoreGame
         
         public override void EntityInit(EcsEntity ecsEntity, EcsWorld world, bool OnScene)
         {
+            GlowRoot gRoot = ecsEntity.Set<GlowRoot>();
+            gRoot.FriendlyGlow = this._friendlyGlow;
+            gRoot.EnemyGlow = this._enemyGlow;
+
             if (ecsEntity.Get<UserPlayer>() == null) {
                 _friendlyGlow.SetActive(false);
                 _enemyGlow.SetActive(true);
@@ -18,8 +22,6 @@ namespace Modules.CoreGame
                 _enemyGlow.SetActive(false);
             }
             
-            ecsEntity.Set<GlowRoot>().FriendlyGlow = this._friendlyGlow;
-            ecsEntity.Set<GlowRoot>().EnemyGlow = this._enemyGlow;
             if(OnScene)
                 Destroy(this);
         }

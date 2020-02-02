@@ -69,7 +69,10 @@ namespace Modules.CoreGame
 
                 // camera
                 .Add(new CameraSystem())
-                .Add(new FollowPlayerCamera());
+                .Add(new FollowPlayerCamera())
+
+                // space objects markers
+                .Add(new MarkersControlSystem(_playerApi));
 
             _viewSystems
                 // view allocations
