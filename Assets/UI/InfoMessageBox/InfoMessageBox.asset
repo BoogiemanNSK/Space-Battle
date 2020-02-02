@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 845baebdc381e486fa9b80633a20a720, type: 3}
+  m_Name: InfoMessageBox
+  m_EditorClassIdentifier: 
+  LayerID: 2
+  Screens:
+  - ID: -2
+    Screen: {fileID: 6146313336015694117, guid: d6943b36170584a738ebf59fe4e10549,
+      type: 3}
+  - ID: 0
+    Screen: {fileID: 39389235474848610, guid: 6696c07ebb63c4b3dbab3bfd9450b33d, type: 3}

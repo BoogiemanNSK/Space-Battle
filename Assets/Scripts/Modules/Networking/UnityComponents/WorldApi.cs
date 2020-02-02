@@ -12,6 +12,7 @@ namespace Modules.CoreGame
     {
         [SerializeField] private NetConfig _config;
         private Dictionary<int, Vector3> IDtoPoint;
+        public Dictionary<int, string> OwnedData;
 
 
         public void GetWorldData(EcsWorld ecsWorld)
@@ -20,7 +21,7 @@ namespace Modules.CoreGame
             StartCoroutine(GetWorldData(_config.ServerAddress + _config.WorldEndPoint, ecsWorld));
         }
 
-        public void CheckOwned(EcsWorld ecsWorld)
+        public void UpdateOwned(EcsWorld ecsWorld)
         {
             StartCoroutine(GetOwnedData(_config.ServerAddress + _config.OwnedList, ecsWorld));
         }
@@ -64,7 +65,12 @@ namespace Modules.CoreGame
                 else
                 {
                     JSONNode world = JSON.Parse(webRequest.downloadHandler.text);
-                    // ResetWorldOwners(world, ecsWorld);
+                    OwnedData = new Dictionary<int, string>();
+                    foreach (var point in world["data"])
+                    {
+                        OwnedData.Add(int.Parse(point.Key), point.Value);
+                    }
+                    ecsWorld.NewEntity().Set<UpdateOwnersTag>();
                 }
             }
         }
@@ -129,6 +135,7 @@ namespace Modules.CoreGame
 
                         lineEntity.Set<AllocateView>().id = "Line";
                     }
+                    
                 }
             }
 

@@ -17,6 +17,13 @@ namespace Modules.CoreGame
         // auto injected fields
         readonly EcsFilter<SpawnPlayerTag> _filter;
 
+        readonly PlayerApi _playerApi;
+
+        public SpawnPlayerProcessing(PlayerApi playerApi)
+        {
+            _playerApi = playerApi;
+        }
+
         public void Run()
         {
             if(_filter.IsEmpty())
@@ -35,6 +42,11 @@ namespace Modules.CoreGame
                 _filter.Entities[i].Set<ViewHub.AllocateView>().id = "Player";
                 _filter.Entities[i].Set<Positioning.Components.Position>();
                 _filter.Entities[i].Set<UpdatePlayerPointTag>();
+                if (p.Name.Equals(_playerApi.PlayerName))
+                {
+                    _filter.Entities[i].Set<UserPlayer>();
+                }
+                _filter.Entities[i].Set<GlowRoot>();
             }
         }
     }

@@ -51,11 +51,19 @@ namespace Modules.CoreGame
                 else
                 {
                     JSONNode data = JSON.Parse(webRequest.downloadHandler.text);
-                    PlayerToken = data["data"]["token"];
-                    PlayerName = userName;
-                    PlayerPrefs.SetString("token", PlayerToken);
-                    PlayerPrefs.SetString("username", userName);
-                    world.NewEntity().Set<LoggedInTag>();
+                    if(data["status"].AsBool)
+                    {
+                        PlayerToken = data["data"]["token"];
+                        PlayerName = userName;
+                        PlayerPrefs.SetString("token", PlayerToken);
+                        PlayerPrefs.SetString("username", userName);
+                        PlayerPrefs.Save();
+                        world.NewEntity().Set<LoggedInTag>();
+                    }else
+                    {
+                        world.NewEntity().Set<ShowInfoPopUpTag>().Message = data["data"];
+                    }
+
                 }
             }
         }
@@ -78,6 +86,9 @@ namespace Modules.CoreGame
                     if(data["status"].AsBool)
                     {
                         world.NewEntity().Set<LoggedInTag>();
+                    }else
+                    {
+                        world.NewEntity().Set<ShowInfoPopUpTag>().Message = data["data"];
                     }
                 }
             }
@@ -118,6 +129,103 @@ namespace Modules.CoreGame
                             world.NewEntity().Set<SpawnPlayerTag>().Player = p;
                         }
                         world.NewEntity().Set<PlayersUpdateTag>();
+                    }
+                }
+            }
+        }
+
+        public void BuyAction(EcsWorld world)
+        {
+            StartCoroutine(Buy(world));
+        }
+
+        public IEnumerator Buy(EcsWorld world)
+        {
+            using(UnityWebRequest webRequest = UnityWebRequest.Get(_config.ServerAddress + _config.BuyEndPoint + 
+            "?username=" + PlayerName + "&token=" + PlayerToken))
+            {
+                // Request and wait for the desired page.
+                yield return webRequest.SendWebRequest();
+
+                if (webRequest.isNetworkError)
+                {
+                    Debug.Log("Login " + ": Error: " + webRequest.error);
+                }
+                else
+                {
+                    JSONNode data = JSON.Parse(webRequest.downloadHandler.text);
+                    if(data["status"].AsBool)
+                    {
+                        world.NewEntity().Set<UIUpdate>();
+                    }else
+                    {
+                        world.NewEntity().Set<ShowInfoPopUpTag>().Message = data["data"];
+                    }
+                }
+            }
+        }
+
+        public void DestroyAction(EcsWorld world)
+        {
+            StartCoroutine(Destroy(world));
+        }
+
+        public IEnumerator Destroy(EcsWorld world)
+        {
+            using(UnityWebRequest webRequest = UnityWebRequest.Get(_config.ServerAddress + _config.DestroyEndPoint + 
+            "?username=" + PlayerName + "&token=" + PlayerToken))
+            {
+                // Request and wait for the desired page.
+                yield return webRequest.SendWebRequest();
+
+                if (webRequest.isNetworkError)
+                {
+                    Debug.Log("Login " + ": Error: " + webRequest.error);
+                }
+                else
+                {
+                    JSONNode data = JSON.Parse(webRequest.downloadHandler.text);
+                    if(data["status"].AsBool)
+                    {
+                        world.NewEntity().Set<UIUpdate>();
+                    }else
+                    {
+                        world.NewEntity().Set<ShowInfoPopUpTag>().Message = data["data"];
+                    }
+                }
+            }
+        }
+
+        public void MoveAction(EcsWorld world, int point)
+        {
+            StartCoroutine(Move(world, point));
+        }
+
+        public IEnumerator Move(EcsWorld world, int point)
+        {
+            using(UnityWebRequest webRequest = UnityWebRequest.Get(_config.ServerAddress + _config.MoveEndPoint + 
+            "?username=" + PlayerName + "&token=" + PlayerToken + "&target=" + point))
+            {
+                // Request and wait for the desired page.
+                yield return webRequest.SendWebRequest();
+
+                if (webRequest.isNetworkError)
+                {
+                    Debug.Log("Login " + ": Error: " + webRequest.error);
+                }
+                else
+                {
+                    JSONNode data = JSON.Parse(webRequest.downloadHandler.text);
+                    if(data["status"].AsBool)
+                    {
+                        world.NewEntity().Set<UIUpdate>();
+                        UICoreECS.ShowScreenTag screen = world.NewEntity().Set<UICoreECS.ShowScreenTag>();
+                        screen.ID = 1;
+                        screen.Layer = 1;
+                        UpdatePlayerData(world);
+                    }else
+                    {
+                        world.NewEntity().Set<ShowInfoPopUpTag>().Message = data["data"];
                     }
                 }
             }

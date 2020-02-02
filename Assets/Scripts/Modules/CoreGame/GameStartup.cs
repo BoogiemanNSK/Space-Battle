@@ -54,13 +54,25 @@ namespace Modules.CoreGame
                 .Add(new SyncWorldSystem(_worldApi))
                 .Add(new ConnectSystem(_playerApi))
                 .Add(new PlayersUpdateSystem(_playerApi))
+                .Add(new DestroyNetSystem(_playerApi))
+                .Add(new BuyNetSystem(_playerApi))
+                .Add(new MoveNetSystem(_playerApi))
 
                 // stuff
-                .Add(new SpawnPlayerProcessing())
+                .Add(new SpawnPlayerProcessing(_playerApi))
+                .Add(new UpdateUserPlanetProcessing())
                 .Add(new UpdatePlayerPointProcessing())
+                .Add(new UpdateOwnersProcessing(_worldApi))
 
                 // object rotating system
-                .Add(new ObjectRotationSystem());
+                .Add(new ObjectRotationSystem())
+
+                // camera
+                .Add(new CameraSystem())
+                .Add(new FollowPlayerCamera())
+
+                // space objects markers
+                .Add(new MarkersControlSystem(_playerApi));
 
             _viewSystems
                 // view allocations
@@ -75,18 +87,29 @@ namespace Modules.CoreGame
                 .Add(new UMeshRenderer.Systems.UMeshRenderer())
                 
                 //ui
-                .Add(new UICoreECS.ScreenSwitchSystem(_screens, _uiRoot));
+                .Add(new UIUpadteIssuer(0.5f))
+                .Add(new UICoreECS.ScreenSwitchSystem(_screens, _uiRoot))
+                .Add(new UIPlayerStatsUpdateSystem())
+                .Add(new UICurrentPlanetPanelDrawer(_playerApi))
+                .Add(new InfoPopUpProcessing())
+                .Add(new UISelectedPlanetPanelDrawer(_playerApi));
 
             _systems
                 .OneFrame<Positioning.Components.LazyPositionUpdate>()
                 .OneFrame<LoginActionTag>()
                 .OneFrame<LoggedInTag>()
                 .OneFrame<PlayersUpdateTag>()
-                .OneFrame<SpawnPlayerTag>();
+                .OneFrame<SpawnPlayerTag>()
+                .OneFrame<UpdateOwnersTag>()
+                .OneFrame<BuyActionTag>()
+                .OneFrame<DestroyActionTag>()
+                .OneFrame<MoveActionTag>()
+                .OneFrame<PointerClicked>();
 
             _viewSystems
                 .OneFrame<AllocateView>()
-                .OneFrame<Positioning.Components.LazyPositionUpdate>();
+                .OneFrame<Positioning.Components.LazyPositionUpdate>()
+                .OneFrame<UIUpdate>();
 
             _systems.Add(_viewSystems);
 
