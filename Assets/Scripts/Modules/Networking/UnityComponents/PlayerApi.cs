@@ -195,6 +195,41 @@ namespace Modules.CoreGame
             }
         }
 
+        public void MoveAction(EcsWorld world, int point)
+        {
+            StartCoroutine(Move(world, point));
+        }
+
+        public IEnumerator Move(EcsWorld world, int point)
+        {
+            using(UnityWebRequest webRequest = UnityWebRequest.Get(_config.ServerAddress + _config.MoveEndPoint + 
+            "?username=" + PlayerName + "&token=" + PlayerToken + "&target=" + point))
+            {
+                // Request and wait for the desired page.
+                yield return webRequest.SendWebRequest();
+
+                if (webRequest.isNetworkError)
+                {
+                    Debug.Log("Login " + ": Error: " + webRequest.error);
+                }
+                else
+                {
+                    JSONNode data = JSON.Parse(webRequest.downloadHandler.text);
+                    if(data["status"].AsBool)
+                    {
+                        world.NewEntity().Set<UIUpdate>();
+                        UICoreECS.ShowScreenTag screen = world.NewEntity().Set<UICoreECS.ShowScreenTag>();
+                        screen.ID = 1;
+                        screen.Layer = 1;
+                        UpdatePlayerData(world);
+                    }else
+                    {
+                        world.NewEntity().Set<ShowInfoPopUpTag>().Message = data["data"];
+                    }
+                }
+            }
+        }
+
 
         
     }
