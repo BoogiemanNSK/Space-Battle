@@ -128,8 +128,10 @@ namespace Modules.CoreGame
                             p.HP = item.Value["hp"].AsInt;
                             p.Power = item.Value["power"].AsInt;
                             PlayerData.Add(p.Name, p);
-                            if(!old.TryGetValue(p.Name, out Player rp))
+                            if (!old.TryGetValue(p.Name, out Player rp))
+                            {
                                 world.NewEntity().Set<SpawnPlayerTag>().Player = p;
+                            }
                         }
                         world.NewEntity().Set<PlayersUpdateTag>();
                     }

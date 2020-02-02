@@ -12,7 +12,8 @@ namespace Modules.CoreGame
         {
             ExplosionRoot eRoot = ecsEntity.Set<ExplosionRoot>();
             eRoot.Explosion = this._explosion;
-            
+            _explosion.Play();
+
             if(OnScene)
                 Destroy(this);
         }

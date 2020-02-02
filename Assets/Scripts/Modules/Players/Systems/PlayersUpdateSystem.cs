@@ -46,17 +46,11 @@ namespace Modules.CoreGame
                         UnityEngine.PlayerPrefs.DeleteKey("username");
                         UnityEngine.PlayerPrefs.Save();
                     }
-                    /*EcsEntity explosionEntity = _world.NewEntity();
+                    EcsEntity explosionEntity = _world.NewEntity();
 
                     Positioning.Components.Position pos = explosionEntity.Set<Positioning.Components.Position>();
-                    foreach (var q in _position) {
-                        if (_user.Get2[i].Name == _position.Get2[q].Name) {
-                            pos.Point = _position.Get1[q].Point;
-                            break;
-                        }
-                    }
-                    explosionEntity.Set<AllocateView>();
-                    explosionEntity.Set<ExplosionRoot>();*/
+                    pos.Point = _players.Entities[i].Get<Positioning.Components.Position>().Point;
+                    explosionEntity.Set<AllocateView>().id = "Explosion";
                     _players.Entities[i].Destroy();
                 }
             }
@@ -65,17 +59,11 @@ namespace Modules.CoreGame
             {
                 if(_user.Get2[i].HP <= 0)
                 {
-                    /*EcsEntity explosionEntity = _world.NewEntity();
+                    EcsEntity explosionEntity = _world.NewEntity();
 
                     Positioning.Components.Position pos = explosionEntity.Set<Positioning.Components.Position>();
-                    foreach (var p in _position) {
-                        if (_user.Get2[i].Name == _position.Get2[p].Name) {
-                            pos.Point = _position.Get1[p].Point;
-                            break;
-                        }
-                    }
-                    explosionEntity.Set<AllocateView>();
-                    explosionEntity.Set<ExplosionRoot>();*/
+                    pos.Point = _user.Entities[i].Get<Positioning.Components.Position>().Point;
+                    explosionEntity.Set<AllocateView>().id = "Explosion";
 
                     UICoreECS.ShowScreenTag screen = _world.NewEntity().Set<UICoreECS.ShowScreenTag>();
                     screen.ID = 2;
