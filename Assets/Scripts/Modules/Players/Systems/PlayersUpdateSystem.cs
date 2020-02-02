@@ -46,8 +46,18 @@ namespace Modules.CoreGame
                         UnityEngine.PlayerPrefs.DeleteKey("username");
                         UnityEngine.PlayerPrefs.Save();
                     }
+                    /*EcsEntity explosionEntity = _world.NewEntity();
+
+                    Positioning.Components.Position pos = explosionEntity.Set<Positioning.Components.Position>();
+                    foreach (var q in _position) {
+                        if (_user.Get2[i].Name == _position.Get2[q].Name) {
+                            pos.Point = _position.Get1[q].Point;
+                            break;
+                        }
+                    }
+                    explosionEntity.Set<AllocateView>();
+                    explosionEntity.Set<ExplosionRoot>();*/
                     _players.Entities[i].Destroy();
-                    
                 }
             }
 
@@ -55,7 +65,7 @@ namespace Modules.CoreGame
             {
                 if(_user.Get2[i].HP <= 0)
                 {
-                    EcsEntity explosionEntity = _world.NewEntity();
+                    /*EcsEntity explosionEntity = _world.NewEntity();
 
                     Positioning.Components.Position pos = explosionEntity.Set<Positioning.Components.Position>();
                     foreach (var p in _position) {
@@ -65,7 +75,7 @@ namespace Modules.CoreGame
                         }
                     }
                     explosionEntity.Set<AllocateView>();
-                    explosionEntity.Set<ExplosionRoot>();
+                    explosionEntity.Set<ExplosionRoot>();*/
 
                     UICoreECS.ShowScreenTag screen = _world.NewEntity().Set<UICoreECS.ShowScreenTag>();
                     screen.ID = 2;
