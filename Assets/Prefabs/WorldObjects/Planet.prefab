@@ -278,7 +278,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _friendlyMarker: {fileID: 5558454967343271233}
-  _neutralMarker: {fileID: 284087517427143467}
   _enemyMarker: {fileID: 887726709250125397}
 --- !u!65 &3959660058100930586
 BoxCollider:
