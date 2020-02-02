@@ -107,7 +107,7 @@ namespace Modules.CoreGame
                         if(owner.OwnerID.Equals(_playerApi.PlayerName))
                         {
                             _view.Get1[i].Destroy.gameObject.SetActive(false);
-                            _view.Get1[i].Heal.gameObject.SetActive(_current.Get2[i].PointID == (int) WorldPointType.Planet);
+                            _view.Get1[i].Heal.gameObject.SetActive(_current.Get2[j].PointType == (int) WorldPointType.Planet);
                         }else
                         {
                             _view.Get1[i].Destroy.gameObject.SetActive(true);
