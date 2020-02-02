@@ -57,12 +57,15 @@ namespace Modules.CoreGame
                 .Add(new DestroyNetSystem(_playerApi))
                 .Add(new BuyNetSystem(_playerApi))
                 .Add(new MoveNetSystem(_playerApi))
+                .Add(new AttackNetSystem(_playerApi))
+                .Add(new HealNetSystem(_playerApi))
 
                 // stuff
                 .Add(new SpawnPlayerProcessing(_playerApi))
                 .Add(new UpdateUserPlanetProcessing())
                 .Add(new UpdatePlayerPointProcessing())
                 .Add(new UpdateOwnersProcessing(_worldApi))
+                .Add(new MoveTargetSys())
 
                 // object rotating system
                 .Add(new ObjectRotationSystem())
@@ -104,7 +107,9 @@ namespace Modules.CoreGame
                 .OneFrame<BuyActionTag>()
                 .OneFrame<DestroyActionTag>()
                 .OneFrame<MoveActionTag>()
-                .OneFrame<PointerClicked>();
+                .OneFrame<PointerClicked>()
+                .OneFrame<AttackActionTag>()
+                .OneFrame<HealActionTag>();
 
             _viewSystems
                 .OneFrame<AllocateView>()

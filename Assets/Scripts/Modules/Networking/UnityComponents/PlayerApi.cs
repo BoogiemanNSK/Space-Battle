@@ -108,6 +108,8 @@ namespace Modules.CoreGame
                 else
                 {
                     JSONNode data = JSON.Parse(webRequest.downloadHandler.text);
+                    Dictionary<string, Player> old = PlayerData;
+                    PlayerData = new Dictionary<string, Player>();
                     foreach (var item in data["data"])
                     {
                         Player p;
@@ -126,7 +128,8 @@ namespace Modules.CoreGame
                             p.HP = item.Value["hp"].AsInt;
                             p.Power = item.Value["power"].AsInt;
                             PlayerData.Add(p.Name, p);
-                            world.NewEntity().Set<SpawnPlayerTag>().Player = p;
+                            if(!old.TryGetValue(p.Name, out Player rp))
+                                world.NewEntity().Set<SpawnPlayerTag>().Player = p;
                         }
                         world.NewEntity().Set<PlayersUpdateTag>();
                     }
@@ -205,6 +208,79 @@ namespace Modules.CoreGame
         {
             using(UnityWebRequest webRequest = UnityWebRequest.Get(_config.ServerAddress + _config.MoveEndPoint + 
             "?username=" + PlayerName + "&token=" + PlayerToken + "&target=" + point))
+            {
+                // Request and wait for the desired page.
+                yield return webRequest.SendWebRequest();
+
+                if (webRequest.isNetworkError)
+                {
+                    Debug.Log("Login " + ": Error: " + webRequest.error);
+                }
+                else
+                {
+                    JSONNode data = JSON.Parse(webRequest.downloadHandler.text);
+                    if(data["status"].AsBool)
+                    {
+                        world.NewEntity().Set<UIUpdate>();
+                        UICoreECS.ShowScreenTag screen = world.NewEntity().Set<UICoreECS.ShowScreenTag>();
+                        screen.ID = 1;
+                        screen.Layer = 1;
+                        UpdatePlayerData(world);
+                    }else
+                    {
+                        world.NewEntity().Set<ShowInfoPopUpTag>().Message = data["data"];
+                    }
+                }
+            }
+        }
+
+        public void AttackAction(EcsWorld world, string target)
+        {
+            StartCoroutine(Attack(world, target));
+        }
+
+
+        public IEnumerator Attack(EcsWorld world, string target)
+        {
+            using(UnityWebRequest webRequest = UnityWebRequest.Get(_config.ServerAddress + _config.AttackEndPoint + 
+            "?username=" + PlayerName + "&token=" + PlayerToken + "&target=" + target))
+            {
+                // Request and wait for the desired page.
+                yield return webRequest.SendWebRequest();
+
+                if (webRequest.isNetworkError)
+                {
+                    Debug.Log("Login " + ": Error: " + webRequest.error);
+                }
+                else
+                {
+                    JSONNode data = JSON.Parse(webRequest.downloadHandler.text);
+                    if(data["status"].AsBool)
+                    {
+                        world.NewEntity().Set<UIUpdate>();
+                        UICoreECS.ShowScreenTag screen = world.NewEntity().Set<UICoreECS.ShowScreenTag>();
+                        screen.ID = 1;
+                        screen.Layer = 1;
+                        UpdatePlayerData(world);
+                    }else
+                    {
+                        world.NewEntity().Set<ShowInfoPopUpTag>().Message = data["data"];
+                    }
+                }
+            }
+        }
+
+
+        public void HealAction(EcsWorld world)
+        {
+            StartCoroutine(Heal(world));
+        }
+
+
+        public IEnumerator Heal(EcsWorld world)
+        {
+            using(UnityWebRequest webRequest = UnityWebRequest.Get(_config.ServerAddress + "/heal" + 
+            "?username=" + PlayerName + "&token=" + PlayerToken))
             {
                 // Request and wait for the desired page.
                 yield return webRequest.SendWebRequest();
