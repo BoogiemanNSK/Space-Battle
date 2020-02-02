@@ -52,6 +52,7 @@ namespace Modules.CoreGame
         readonly EcsFilter<UIUpdate> _uiUpdate;
         readonly EcsFilter<UISelectedPlanetPanelComponent> _view;
         readonly EcsFilter<UIRemotePointTarget, WorldPoint> _current;
+        readonly EcsFilter<UserPlayer, Player> _playerPoint;
         readonly EcsFilter<PointerClicked, WorldPoint> _new;
         readonly PlayerApi _playerApi;
         readonly EcsWorld _world;
@@ -69,14 +70,18 @@ namespace Modules.CoreGame
                 {
                     _current.Entities[i].Unset<UIRemotePointTarget>();
                 }
-
+                bool isPlayerPoint = false;
                 foreach (var i in _new)
                 {
+                    if(_new.Get2[i].PointID == _playerPoint.Get2[0].Location)
+                    {
+                        isPlayerPoint = true;
+                    }
                     _new.Entities[i].Set<UIRemotePointTarget>();
                 }
 
                 UICoreECS.ShowScreenTag screen = _world.NewEntity().Set<UICoreECS.ShowScreenTag>();
-                screen.ID = 2;
+                screen.ID = isPlayerPoint ? 1 : 2;
                 screen.Layer = 1;
 
                 _world.NewEntity().Set<UIUpdate>();
