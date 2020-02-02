@@ -36,6 +36,15 @@ namespace Modules.CoreGame
 
         public void Run()
         {
+#if UNITY_EDITOR || UNITY_STANDALONE
+            float acceleration = 5f;
+            float shift = Input.GetKey(KeyCode.LeftShift) ? 2f : 1f;
+            float vertical = (Input.GetKey(KeyCode.S) ? -1f : 0f) + (Input.GetKey(KeyCode.W) ? 1f : 0f);
+            float horizontal = (Input.GetKey(KeyCode.A) ? -1f : 0f) + (Input.GetKey(KeyCode.D) ? 1f : 0f);
+            xPos += horizontal * MovementSpeed * acceleration * shift;
+            yPos += vertical * MovementSpeed * acceleration * shift;
+            _camPosition.Point = new Vector3(xPos, _camPosition.Point.y, yPos);
+#else
             if (Input.touchCount > 0) 
             {
                 if (Input.GetTouch(0).phase == TouchPhase.Began) 
@@ -54,6 +63,7 @@ namespace Modules.CoreGame
                     _camPosition.Point = new Vector3(xPos, _camPosition.Point.y, yPos);
                 }
             }
+#endif
         }
     }
 }
