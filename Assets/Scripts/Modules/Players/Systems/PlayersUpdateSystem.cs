@@ -37,7 +37,17 @@ namespace Modules.CoreGame
                     }
                 }else
                 {
+                    if(_players.Get1[i].Name.Equals(_playerApi.PlayerName))
+                    {
+                        UICoreECS.ShowScreenTag screen = _world.NewEntity().Set<UICoreECS.ShowScreenTag>();
+                        screen.ID = 2;
+                        screen.Layer = 0;
+                        UnityEngine.PlayerPrefs.DeleteKey("token");
+                        UnityEngine.PlayerPrefs.DeleteKey("username");
+                        UnityEngine.PlayerPrefs.Save();
+                    }
                     _players.Entities[i].Destroy();
+                    
                 }
             }
 

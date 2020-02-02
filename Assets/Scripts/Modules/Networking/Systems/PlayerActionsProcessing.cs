@@ -63,4 +63,32 @@ namespace Modules.CoreGame
             _playerApi.MoveAction(_world, _target.Get2[0].PointID);
         }
     }
+
+    public class AttackNetSystem : IEcsRunSystem
+    {
+        readonly EcsFilter<AttackActionTag> _filter;
+        readonly EcsFilter<UserPlayer, Player> _target;
+        readonly EcsFilter<Player> _players;
+        readonly EcsWorld _world;
+        readonly PlayerApi _playerApi;
+
+        public AttackNetSystem(PlayerApi playerApi)
+        {
+            _playerApi = playerApi;
+        }
+
+        public void Run()
+        {
+            if(_filter.IsEmpty() || _target.IsEmpty())
+                return;
+
+            foreach (var i in _players)
+            {
+                if(_players.Get1[i].Location == _target.Get2[0].Location && !_players.Get1[i].Name.Equals(_playerApi.PlayerName))
+                {
+                    _playerApi.AttackAction(_world, _players.Get1[i].Name);
+                }
+            }
+        }
+    }
 }

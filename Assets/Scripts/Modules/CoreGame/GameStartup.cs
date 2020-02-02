@@ -57,6 +57,7 @@ namespace Modules.CoreGame
                 .Add(new DestroyNetSystem(_playerApi))
                 .Add(new BuyNetSystem(_playerApi))
                 .Add(new MoveNetSystem(_playerApi))
+                .Add(new AttackNetSystem(_playerApi))
 
                 // stuff
                 .Add(new SpawnPlayerProcessing(_playerApi))
@@ -104,7 +105,8 @@ namespace Modules.CoreGame
                 .OneFrame<BuyActionTag>()
                 .OneFrame<DestroyActionTag>()
                 .OneFrame<MoveActionTag>()
-                .OneFrame<PointerClicked>();
+                .OneFrame<PointerClicked>()
+                .OneFrame<AttackActionTag>();
 
             _viewSystems
                 .OneFrame<AllocateView>()
